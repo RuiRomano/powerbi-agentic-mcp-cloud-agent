@@ -28,6 +28,8 @@
 - Assign the GitHub issue to a coding agent
 - Review the PR
 
+Learn more about GitHub coding agent in [about-cloud-agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent)
+
 ## Acknowledgments
 
 - [semantic-model-documentation skill](.github/skills/semantic-model-documentation/SKILL.md) was copied from [John Kerski](https://www.linkedin.com/in/john-kerski) repo [github-agentic-workflow-power-bi-mcp-example](https://github.com/clientfirsttech/github-agentic-workflow-power-bi-mcp-example/tree/main)
