@@ -21,7 +21,12 @@
         }
     ```
 - Click **Save MCP Configuration**
-- 
+- Open a new GitHub issue and ask to perform a task on top of the semantic model source code.
+    **Examples:**
+        - > Generate documentation for Sales semantic model
+        - > ANalyze the naming convention of Sales semantic model and propose changes
+- Assign the GitHub issue to a coding agent
+- Review the PR
 
 ## Acknowledgments
 
