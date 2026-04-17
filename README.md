@@ -30,6 +30,9 @@
 
 Learn more about GitHub coding agent in [about-cloud-agent](https://docs.github.com/en/copilot/concepts/agents/cloud-agent/about-cloud-agent)
 
+> [!TIP]
+> Try creating issues from your smartphone and observe how easily you can delegate tasks to coding agents while focusing on acting as a critical reviewer.
+
 ## Acknowledgments
 
 - [semantic-model-documentation skill](.github/skills/semantic-model-documentation/SKILL.md) was copied from [John Kerski](https://www.linkedin.com/in/john-kerski) repo [github-agentic-workflow-power-bi-mcp-example](https://github.com/clientfirsttech/github-agentic-workflow-power-bi-mcp-example/tree/main)
