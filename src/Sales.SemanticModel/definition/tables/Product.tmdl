@@ -14,7 +14,7 @@ table Product
 
 		annotation SummarizationSetBy = Automatic
 
-	column ProductKey
+	column 'Product Key'
 		dataType: int64
 		isHidden
 		isKey

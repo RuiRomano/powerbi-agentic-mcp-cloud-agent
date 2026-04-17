@@ -5,7 +5,7 @@ table Store
 		formatString: #,##0
 		lineageTag: 868df9c8-f579-47d1-a776-3d29121df7c7
 
-	column StoreKey
+	column 'Store Key'
 		dataType: int64
 		isHidden
 		isKey

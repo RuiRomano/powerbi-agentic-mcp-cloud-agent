@@ -1,11 +1,11 @@
 table Sales
 	lineageTag: 97143e5b-7736-4fcb-8042-26b92b1f5684
 
-	measure '# Customers (w/ Sales)' = DISTINCTCOUNT('Sales'[CustomerKey])
+	measure '# Customers with Sales' = DISTINCTCOUNT('Sales'[Customer Key])
 		formatString: #,##0
 		lineageTag: 4ec872f0-a42d-4aa9-bf6b-1ca7c4916336
 
-	measure 'Sales Qty' = sum('Sales'[Quantity])
+	measure 'Sales Quantity' = sum('Sales'[Quantity])
 		formatString: #,##0
 		lineageTag: c2ff8d96-2f03-4005-84df-91458625b73b
 
@@ -13,11 +13,11 @@ table Sales
 		formatString: $ #,##0
 		lineageTag: a8e95485-02a2-4525-b02a-b2418fbdbe4c
 
-	measure 'Sales Amount (LY)' = IF ([Sales Amount] > 0, CALCULATE([Sales Amount], SAMEPERIODLASTYEAR('Calendar'[Date])))
+	measure 'Sales Amount 1YP' = IF ([Sales Amount] > 0, CALCULATE([Sales Amount], SAMEPERIODLASTYEAR('Calendar'[Date])))
 		formatString: "€"#,0.###############;("€"#,0.###############);"€"#,0.###############
 		lineageTag: 3fa889ae-64b9-4a6e-b0e6-c81c90fd32bf
 
-	measure 'Sales Amount Avg per Day' = AVERAGEX(VALUES('Calendar'[Date]), [Sales Amount])
+	measure 'Sales Amount Daily Average' = AVERAGEX(VALUES('Calendar'[Date]), [Sales Amount])
 		formatString: $ #,##0
 		lineageTag: 65842ce7-7176-4106-868e-2e83aaa62b4c
 
@@ -34,7 +34,7 @@ table Sales
 		formatString: #,##02
 		lineageTag: 67791bd1-5f33-4a29-a9ac-be0ad2453fcf
 
-	measure 'Sales Amount (12M average)' =
+	measure 'Sales Amount 12-Month Average' =
 			
 			VAR v_selDate =
 			    MAX ( 'Calendar'[Date] )
@@ -51,7 +51,7 @@ table Sales
 		formatString: $ #,##0
 		lineageTag: 7fd60f7e-287e-46c3-a745-24c4507bc77b
 
-	measure 'Sales Amount (6M average)' =
+	measure 'Sales Amount 6-Month Average' =
 			VAR v_selDate =
 			    MAX ( 'Calendar'[Date] )
 			VAR v_period =
@@ -111,7 +111,7 @@ table Sales
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column CustomerKey
+	column 'Customer Key'
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -122,7 +122,7 @@ table Sales
 
 		annotation SummarizationSetBy = Automatic
 
-	column StoreKey
+	column 'Store Key'
 		dataType: int64
 		isHidden
 		formatString: 0
@@ -133,7 +133,7 @@ table Sales
 
 		annotation SummarizationSetBy = Automatic
 
-	column ProductKey
+	column 'Product Key'
 		dataType: int64
 		isHidden
 		formatString: 0

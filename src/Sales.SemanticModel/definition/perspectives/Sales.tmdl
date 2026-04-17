@@ -2,23 +2,23 @@ perspective Sales
 
 	perspectiveTable Sales
 
-		perspectiveMeasure '# Customers (w/ Sales)'
+		perspectiveMeasure '# Customers with Sales'
 
-		perspectiveMeasure 'Sales Qty'
+		perspectiveMeasure 'Sales Quantity'
 
 		perspectiveMeasure 'Sales Amount'
 
-		perspectiveMeasure 'Sales Amount (LY)'
+		perspectiveMeasure 'Sales Amount 1YP'
 
-		perspectiveMeasure 'Sales Amount Avg per Day'
+		perspectiveMeasure 'Sales Amount Daily Average'
 
 		perspectiveMeasure Margin
 
 		perspectiveMeasure '# Sales'
 
-		perspectiveMeasure 'Sales Amount (12M average)'
+		perspectiveMeasure 'Sales Amount 12-Month Average'
 
-		perspectiveMeasure 'Sales Amount (6M average)'
+		perspectiveMeasure 'Sales Amount 6-Month Average'
 
 		perspectiveColumn 'Order Number'
 
@@ -28,11 +28,11 @@ perspective Sales
 
 		perspectiveColumn 'Delivery Date'
 
-		perspectiveColumn CustomerKey
+		perspectiveColumn 'Customer Key'
 
-		perspectiveColumn StoreKey
+		perspectiveColumn 'Store Key'
 
-		perspectiveColumn ProductKey
+		perspectiveColumn 'Product Key'
 
 		perspectiveColumn 'Unit Cost'
 
@@ -48,7 +48,7 @@ perspective Sales
 
 		perspectiveColumn Product
 
-		perspectiveColumn ProductKey
+		perspectiveColumn 'Product Key'
 
 		perspectiveColumn 'Product Code'
 

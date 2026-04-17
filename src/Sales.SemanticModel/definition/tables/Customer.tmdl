@@ -5,7 +5,7 @@ table Customer
 		formatString: #,##0
 		lineageTag: a8dc565a-aa9b-40dc-902c-1ba2596b0977
 
-	column CustomerKey
+	column 'Customer Key'
 		dataType: int64
 		isHidden
 		isKey
