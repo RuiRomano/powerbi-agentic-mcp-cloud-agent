@@ -1,15 +1,18 @@
 table Store
 	lineageTag: 54d5f884-12db-4e03-a120-08cd725db2c4
 
+	/// Total number of stores in the Store table
 	measure '# Stores' = COUNTROWS('Store')
 		formatString: #,##0
+		displayFolder: 0. Measures
 		lineageTag: 868df9c8-f579-47d1-a776-3d29121df7c7
 
-	column StoreKey
+	column 'Store Key'
 		dataType: int64
 		isHidden
 		isKey
 		formatString: 0
+		displayFolder: 3. Keys
 		isAvailableInMdx: false
 		lineageTag: b63bc7b8-266a-4424-9676-c3e68501b2ec
 		summarizeBy: none
@@ -17,16 +20,20 @@ table Store
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Unique alphanumeric code identifying the store
 	column 'Store Code'
 		dataType: string
+		displayFolder: 3. Keys
 		lineageTag: 307e3348-2132-4db3-b76a-771ac4561ef5
 		summarizeBy: none
 		sourceColumn: Store Code
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Country where the store is located
 	column Country
 		dataType: string
+		displayFolder: 1. Store
 		lineageTag: 7564fe29-ad01-43e0-ba93-2e1634e1a9b3
 		dataCategory: Uncategorized
 		summarizeBy: none
@@ -34,16 +41,20 @@ table Store
 
 		annotation SummarizationSetBy = Automatic
 
+	/// State or region where the store is located
 	column State
 		dataType: string
+		displayFolder: 1. Store
 		lineageTag: f471c9c0-1924-46e4-99d8-59ccf0f64cba
 		summarizeBy: none
 		sourceColumn: State
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Store name
 	column Store
 		dataType: string
+		displayFolder: 1. Store
 		lineageTag: 7bee915f-7eb7-4dbc-a16f-e796f410b3f5
 		isDefaultLabel
 		summarizeBy: none
@@ -51,18 +62,22 @@ table Store
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Total floor area of the store in square meters
 	column 'Square Meters'
 		dataType: int64
 		formatString: 0
+		displayFolder: 2. Attributes
 		lineageTag: 1596588a-acc4-41c4-a692-310fd28994bb
 		summarizeBy: none
 		sourceColumn: Square Meters
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Date the store opened
 	column 'Open Date'
 		dataType: dateTime
 		formatString: Long Date
+		displayFolder: 2. Attributes
 		lineageTag: 66cf5168-4add-4a05-b2c8-0380a85b0539
 		summarizeBy: none
 		sourceColumn: Open Date
@@ -71,9 +86,11 @@ table Store
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Date the store closed, if applicable
 	column 'Close Date'
 		dataType: dateTime
 		formatString: Long Date
+		displayFolder: 2. Attributes
 		lineageTag: e627ea17-3b62-46f2-a2f4-549dc98beb06
 		summarizeBy: count
 		sourceColumn: Close Date
@@ -82,8 +99,10 @@ table Store
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Current operational status of the store (e.g., Open, Closed)
 	column Status
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 93122991-3d6a-413c-ad26-3610fa90013b
 		summarizeBy: none
 		sourceColumn: Status

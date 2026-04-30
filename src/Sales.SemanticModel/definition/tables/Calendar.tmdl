@@ -59,7 +59,7 @@ table Calendar
 
 		annotation SummarizationSetBy = Automatic
 
-	column Year-Month
+	column 'Year Month'
 		dataType: dateTime
 		formatString: mmm yyyy
 		lineageTag: ac2a5593-1f73-4c5a-9130-6de159221be7
@@ -125,7 +125,7 @@ table Calendar
 
 		annotation SummarizationSetBy = Automatic
 
-	hierarchy Year-Month-Day
+	hierarchy 'Year Month Day'
 		lineageTag: d00d0618-e29f-486f-a4d4-dea56417f06b
 
 		level Year

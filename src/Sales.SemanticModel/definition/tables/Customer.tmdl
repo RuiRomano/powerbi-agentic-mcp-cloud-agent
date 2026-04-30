@@ -1,15 +1,18 @@
 table Customer
 	lineageTag: 04227f5a-0aeb-4448-b5c5-dbf3e276da85
 
+	/// Total number of customers in the Customer table
 	measure '# Customers' = COUNTROWS('Customer')
 		formatString: #,##0
+		displayFolder: 0. Measures
 		lineageTag: a8dc565a-aa9b-40dc-902c-1ba2596b0977
 
-	column CustomerKey
+	column 'Customer Key'
 		dataType: int64
 		isHidden
 		isKey
 		formatString: 0
+		displayFolder: 3. Keys
 		isAvailableInMdx: false
 		lineageTag: 901662ed-f0ae-41f6-96b3-4aa68bad1c7a
 		summarizeBy: none
@@ -17,16 +20,20 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's gender
 	column Gender
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 7e0ce5eb-3e63-4870-b30a-032f5186375d
 		summarizeBy: none
 		sourceColumn: Gender
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Full name of the customer
 	column Customer
 		dataType: string
+		displayFolder: 1. Customer
 		lineageTag: 8845f8b5-b069-41a0-8af8-12e402b113e9
 		isDefaultLabel
 		summarizeBy: none
@@ -34,16 +41,20 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's street address
 	column Address
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: adbeb074-7c67-40ee-be2d-d46775ce5e17
 		summarizeBy: none
 		sourceColumn: Address
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's city of residence
 	column City
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: a791eb8c-7fab-418d-844a-f8b094453037
 		dataCategory: City
 		summarizeBy: none
@@ -51,8 +62,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Two-letter abbreviation of the customer's state or province
 	column 'State Code'
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 29de3d16-fffa-4f61-8c39-c1a2a36d737a
 		dataCategory: StateOrProvince
 		summarizeBy: none
@@ -60,8 +73,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Full name of the customer's state or province
 	column State
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 923b4cc1-6137-4bb4-bcb2-3a90c5f76c5e
 		dataCategory: StateOrProvince
 		summarizeBy: none
@@ -69,8 +84,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's postal or zip code
 	column 'Zip Code'
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 439ce0ee-437e-4770-90c4-c4d53ebfb35b
 		dataCategory: PostalCode
 		summarizeBy: none
@@ -78,8 +95,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// ISO country code of the customer's country
 	column 'Country Code'
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: f3eea279-4255-446b-9f83-f40f66abf6d1
 		dataCategory: Country
 		summarizeBy: none
@@ -87,8 +106,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's country of residence
 	column Country
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 99af44ae-86e9-4b75-98a3-e4b6e53fe806
 		dataCategory: Country
 		summarizeBy: none
@@ -96,8 +117,10 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's continent of residence
 	column Continent
 		dataType: string
+		displayFolder: 2. Attributes
 		lineageTag: 53b840d2-962c-44c4-8733-6cc003fb9a83
 		dataCategory: Continent
 		summarizeBy: none
@@ -105,9 +128,11 @@ table Customer
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Customer's date of birth
 	column Birthday
 		dataType: dateTime
 		formatString: Long Date
+		displayFolder: 2. Attributes
 		lineageTag: afa5e191-c690-45c1-a725-41c9d3ca9434
 		summarizeBy: none
 		sourceColumn: Birthday
@@ -116,6 +141,7 @@ table Customer
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Customer's current age in years, calculated from their birthday
 	column Age =
 			
 			DATEDIFF(
@@ -124,6 +150,7 @@ table Customer
 			    YEAR
 			)
 		formatString: 0
+		displayFolder: 2. Attributes
 		lineageTag: eedffcae-3881-4d0d-ba45-7a5b19382fca
 		summarizeBy: none
 

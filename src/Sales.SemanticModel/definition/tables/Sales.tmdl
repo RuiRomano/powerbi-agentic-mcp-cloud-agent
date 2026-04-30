@@ -1,26 +1,37 @@
 table Sales
 	lineageTag: 97143e5b-7736-4fcb-8042-26b92b1f5684
 
-	measure '# Customers (w/ Sales)' = DISTINCTCOUNT('Sales'[CustomerKey])
+	/// Number of distinct customers with at least one sale in the selected period
+	measure '# Customers with Sales' = DISTINCTCOUNT('Sales'[Customer Key])
 		formatString: #,##0
+		displayFolder: 0. Measures\3. Lines
 		lineageTag: 4ec872f0-a42d-4aa9-bf6b-1ca7c4916336
 
-	measure 'Sales Qty' = sum('Sales'[Quantity])
+	/// Total quantity of items sold
+	measure 'Sales Quantity' = sum('Sales'[Quantity])
 		formatString: #,##0
+		displayFolder: 0. Measures\2. Quantity
 		lineageTag: c2ff8d96-2f03-4005-84df-91458625b73b
 
+	/// Total sales amount calculated as the sum of quantity multiplied by net price
 	measure 'Sales Amount' = SUMX('Sales', 'Sales'[Quantity] * 'Sales'[Net Price])
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: a8e95485-02a2-4525-b02a-b2418fbdbe4c
 
-	measure 'Sales Amount (LY)' = IF ([Sales Amount] > 0, CALCULATE([Sales Amount], SAMEPERIODLASTYEAR('Calendar'[Date])))
+	/// Sales Amount for the same period last year using SAMEPERIODLASTYEAR
+	measure 'Sales Amount LY' = IF ([Sales Amount] > 0, CALCULATE([Sales Amount], SAMEPERIODLASTYEAR('Calendar'[Date])))
 		formatString: "€"#,0.###############;("€"#,0.###############);"€"#,0.###############
+		displayFolder: 0. Measures\1. Value
 		lineageTag: 3fa889ae-64b9-4a6e-b0e6-c81c90fd32bf
 
-	measure 'Sales Amount Avg per Day' = AVERAGEX(VALUES('Calendar'[Date]), [Sales Amount])
+	/// Average daily sales amount for the selected period
+	measure 'Sales Amount Daily Average' = AVERAGEX(VALUES('Calendar'[Date]), [Sales Amount])
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: 65842ce7-7176-4106-868e-2e83aaa62b4c
 
+	/// Gross margin calculated as the sum of quantity multiplied by (net price minus unit cost)
 	measure Margin =
 			SUMX (
 			    Sales,
@@ -28,13 +39,17 @@ table Sales
 			        * ( Sales[Net Price] - Sales[Unit Cost] )
 			)
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: d22a262b-b776-4ccd-b9bd-7ef9c90eba51
 
+	/// Total number of sales transaction lines
 	measure '# Sales' = COUNTROWS('Sales')
 		formatString: #,##02
+		displayFolder: 0. Measures\3. Lines
 		lineageTag: 67791bd1-5f33-4a29-a9ac-be0ad2453fcf
 
-	measure 'Sales Amount (12M average)' =
+	/// Rolling 12-month average of daily sales amount ending on the last date with sales
+	measure 'Sales Amount 12 Month Average' =
 			
 			VAR v_selDate =
 			    MAX ( 'Calendar'[Date] )
@@ -49,9 +64,11 @@ table Sales
 			RETURN
 			    IF ( v_firstDate <= v_lastDateSales, v_result )
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: 7fd60f7e-287e-46c3-a745-24c4507bc77b
 
-	measure 'Sales Amount (6M average)' =
+	/// Rolling 6-month average of daily sales amount ending on the last date with sales
+	measure 'Sales Amount 6 Month Average' =
 			VAR v_selDate =
 			    MAX ( 'Calendar'[Date] )
 			VAR v_period =
@@ -65,33 +82,42 @@ table Sales
 			RETURN
 			    IF ( v_firstDate <= v_lastDateSales, v_result )
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: 9a48bea0-e5fb-40fa-9e81-f61288e31a02
 
+	/// Total cost calculated as the sum of quantity multiplied by unit cost
 	measure Cost = SUMX ( Sales, Sales[Quantity] * Sales[Unit Cost] )
 		formatString: $ #,##0
+		displayFolder: 0. Measures\1. Value
 		lineageTag: 3e5cb67e-a411-476f-ad34-7ec10dfd084d
 
+	/// Unique sales order identifier — a single order can have multiple lines
 	column 'Order Number'
 		dataType: int64
 		formatString: 0
+		displayFolder: 2. Degenerate Dimensions
 		lineageTag: e2e629f1-f1fb-4444-a627-b121d77fdc06
 		summarizeBy: none
 		sourceColumn: Order Number
 
 		annotation SummarizationSetBy = User
 
+	/// Line number within a sales order
 	column 'Line Number'
 		dataType: int64
 		formatString: 0
+		displayFolder: 2. Degenerate Dimensions
 		lineageTag: d4046972-90a5-46b2-badb-709e834b99af
 		summarizeBy: none
 		sourceColumn: Line Number
 
 		annotation SummarizationSetBy = User
 
+	/// Date the order was placed — used as the primary date relationship to Calendar
 	column 'Order Date'
 		dataType: dateTime
 		formatString: Long Date
+		displayFolder: 3. Keys\Dates
 		lineageTag: d2d074d6-be1f-4dfd-b826-cd99fe83bc3a
 		summarizeBy: none
 		sourceColumn: Order Date
@@ -100,9 +126,11 @@ table Sales
 
 		annotation UnderlyingDateTimeDataType = Date
 
+	/// Date the order was delivered
 	column 'Delivery Date'
 		dataType: dateTime
 		formatString: Long Date
+		displayFolder: 3. Keys\Dates
 		lineageTag: 1056fc0f-d1e5-4872-a39b-25603dba5cf5
 		summarizeBy: none
 		sourceColumn: Delivery Date
@@ -111,10 +139,11 @@ table Sales
 
 		annotation UnderlyingDateTimeDataType = Date
 
-	column CustomerKey
+	column 'Customer Key'
 		dataType: int64
 		isHidden
 		formatString: 0
+		displayFolder: 3. Keys
 		isAvailableInMdx: false
 		lineageTag: 4de77f33-318d-4006-85db-580cb119fc6a
 		summarizeBy: none
@@ -122,10 +151,11 @@ table Sales
 
 		annotation SummarizationSetBy = Automatic
 
-	column StoreKey
+	column 'Store Key'
 		dataType: int64
 		isHidden
 		formatString: 0
+		displayFolder: 3. Keys
 		isAvailableInMdx: false
 		lineageTag: cf26d73c-10d7-40ac-83a3-c91c04e948d8
 		summarizeBy: none
@@ -133,10 +163,11 @@ table Sales
 
 		annotation SummarizationSetBy = Automatic
 
-	column ProductKey
+	column 'Product Key'
 		dataType: int64
 		isHidden
 		formatString: 0
+		displayFolder: 3. Keys
 		isAvailableInMdx: false
 		lineageTag: 595525b1-f5ca-442e-a226-0cc478b823c0
 		summarizeBy: none
@@ -144,26 +175,32 @@ table Sales
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Unit cost of the product at time of sale — used in margin and cost calculations
 	column 'Unit Cost'
 		dataType: decimal
 		isHidden
 		isAvailableInMdx: false
+		displayFolder: 1. Facts
 		lineageTag: 03a43676-2ce4-4678-a4a7-0ee8f4e00b17
 		summarizeBy: sum
 		sourceColumn: Unit Cost
 
 		annotation SummarizationSetBy = Automatic
 
+	/// ISO currency code for the transaction (e.g., USD, EUR)
 	column 'Currency Code'
 		dataType: string
+		displayFolder: 1. Facts
 		lineageTag: a75ba79f-22a3-4bfd-9b52-80e5d73247a9
 		summarizeBy: none
 		sourceColumn: Currency Code
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Exchange rate applied to convert the transaction to the base currency
 	column 'Exchange Rate'
 		dataType: decimal
+		displayFolder: 1. Facts
 		lineageTag: 0b3f913f-1587-4280-a8bb-21ab7d661086
 		summarizeBy: none
 		sourceColumn: Exchange Rate
@@ -172,6 +209,7 @@ table Sales
 
 	column Environment
 		dataType: string
+		displayFolder: 1. Facts
 		lineageTag: 05fb6ae8-19b4-40c5-81b2-e40a6edd8692
 		summarizeBy: none
 		sourceColumn: Environment
@@ -181,6 +219,7 @@ table Sales
 	column Time
 		dataType: dateTime
 		formatString: Long Time
+		displayFolder: 1. Facts
 		lineageTag: 00586e3b-f4b1-4314-9cff-0a9695c99eb2
 		summarizeBy: none
 		sourceColumn: Time
@@ -193,6 +232,7 @@ table Sales
 		dataType: int64
 		isHidden
 		formatString: 0
+		displayFolder: 1. Facts
 		lineageTag: 3a3256d8-5094-4a3a-9109-8ce85813f62c
 		summarizeBy: sum
 		sourceColumn: Quantity
@@ -203,6 +243,7 @@ table Sales
 		dataType: decimal
 		isHidden
 		formatString: "€"#,0.###############;("€"#,0.###############);"€"#,0.###############
+		displayFolder: 1. Facts
 		lineageTag: a190bb72-9254-4740-b536-2c016eef5c07
 		summarizeBy: sum
 		sourceColumn: Net Price
