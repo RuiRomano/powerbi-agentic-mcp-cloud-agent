@@ -1,5 +1,5 @@
 ---
-name: powerbi-semantic-model-authoring-cli
+name: semantic-model-authoring
 description: >
   Develops and manages Power BI semantic models across Desktop, PBIP projects,
   and Fabric Service. Handles (1) creating new models (Import, DirectQuery,
