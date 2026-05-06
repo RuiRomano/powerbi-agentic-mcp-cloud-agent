@@ -45,7 +45,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          python -m pip install -r requirements.txt
+          python -m pip install -r scripts/requirements.txt
 
       - name: Azure Login
         uses: azure/login@v2
